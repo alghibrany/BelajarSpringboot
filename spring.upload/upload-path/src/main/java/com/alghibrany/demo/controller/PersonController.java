@@ -30,8 +30,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @Controller
 public class PersonController {
 
-    private static final String UPLOADED_FOLDER = "./src/main/resources/static/image/";
-    private static final String UPLOADED_FOLDERPDF = "./src/main/resources/static/pdf/";
+    private static final String UPLOADED_FOLDER = "../src/main/resources/static/image/";
+    private static final String UPLOADED_FOLDERPDF = "../src/main/resources/static/pdf/";
 
     @Autowired
     PersonDao pd;
