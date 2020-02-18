@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- BS CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- FA CSS -->
+    <link rel="stylesheet" href="css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Cairo|Poppins|Josefin+Sans|Barlow|Asap|Exo|Yantramanav" rel="stylesheet">
+
+
+    <style>
+      .card {
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+        margin-top: 100px;
+}
+    </style>
+  </head>
+  <body style="background-image: url('img/bg-login.jpg'); background-repeat: none;">
+    <!-- Navbar start -->
+    <div th:insert="fragments/general::navbar"></div>
+    <!-- Navbar end -->
+
+    <!-- Content -->
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-sm-3">&nbsp;</div>
+        <div class="col-sm-6">
+          <div class="card" style="color: rgb(70, 70, 70); font-family: 'Cairo',sans-serif; background-color:rgba(255,255,255, 0.6); box-shadow: 0px 0px 10px dimgrey;">
+            <h5 class="card-header" style="font-size: 30px; ">Login</h5>
+            <div class="card-body">
+              <span style="color :red" th:if="${param.error}">Invalid Username or Password</span>
+              <form th:action="@{/login}" method="post">
+                <p class="card-text">
+                  <label for="username">Username</label>
+                  <input type="text" name="username" class="form-control" required>
+                  <label for="password">Password</label>
+                  <input type="password" name="password" class="form-control" required>
+                </p>
+                
+                <input type="checkbox" name="remember">Remember Me</input><br>
+                <a th:href="@{/forget}">forget password ?</a>
+                <input type="submit" class="btn btn-primary float-right">Login</a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- EoC -->
+
+    <!-- BS JS -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- FA JS -->
+    <script src="vendor/fontawesome-free/js/all.min.js"></script>
+    <!-- JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+  </body>
+</html>
