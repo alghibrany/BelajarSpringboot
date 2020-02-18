@@ -1,13 +1,8 @@
 package com.alghibrany.demo.controller;
 
 import com.alghibrany.demo.model.Profile;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.alghibrany.demo.dao.ProfileDao;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import com.alghibrany.demo.dao.ProfileDao;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -30,22 +25,22 @@ import com.alghibrany.demo.dao.ProfileDao;
 public class ProfileController {
 
     @Autowired
-    ProfileDao pd;
+    private ProfileDao pd;
 
     @RequestMapping("/")
     public String home() {
         return "home";
     }
 
-    @RequestMapping("/person/create")
+    @RequestMapping("/profile/create")
     public String index(Model model) {
-        model.addAttribute("persons", new Profile());
+        model.addAttribute("profile", new Profile());
         return "index";
     }
 
     @RequestMapping("/{id}")
     public String home(Model model, @PathVariable int id) {
-        model.addAttribute("persons", pd.findById(id));
+        model.addAttribute("profile", pd.findO(id));
         return "home";
     }
 
@@ -81,8 +76,8 @@ public class ProfileController {
     }
 
     @GetMapping("/{id}/img/foto.jpg")
-    public ResponseEntity downloadImg(@PathVariable String id) {
-        Optional<Profile> op = pd.findById(Integer.parseInt(id));
+    public ResponseEntity downloadImg(@PathVariable int id) {
+        Optional<Profile> op = pd.findById(id);
         Profile p = op.get();
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("image/jpg"))
@@ -91,8 +86,8 @@ public class ProfileController {
     }
 
     @GetMapping("/{id}/pdf/cv.pdf")
-    public ResponseEntity downloadPdf(@PathVariable String id) {
-        Optional<Profile> op = pd.findById(Integer.parseInt(id));
+    public ResponseEntity downloadPdf(@PathVariable int id) {
+        Optional<Profile> op = pd.findById(id);
         Profile p = op.get();
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("application/pdf"))

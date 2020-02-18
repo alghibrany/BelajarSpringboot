@@ -14,11 +14,14 @@
 
 <body>
     <h1>Demo Spring Upload</h1>
-    <a th:href="@{/person/create}">Masuk Halaman Upload</a>
+    <a th:href="@{/profile/create}">Masuk Halaman Upload</a>
     <div class="container">
         <div class="row">
-            <tr th:each="p : ${persons}">
-                <img class="info" th:attr="src=@{/image/}+@{${p.data_gambar}}" />
+            <tr th:each="p : ${profile}">
+                <td th:text="${p.data_gambar}"></td>
+                <td>
+                    <img th:src="@{/__${p.id}__/img/foto.jpg}">
+                </td>
             </tr>
         </div>
     </div>
