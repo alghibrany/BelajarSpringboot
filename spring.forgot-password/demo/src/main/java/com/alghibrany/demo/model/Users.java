@@ -3,7 +3,6 @@ package com.alghibrany.demo.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.persistence.GenerationType;
@@ -24,7 +23,6 @@ public class Users {
     @NotEmpty
     @NotNull
     private String email;
-
     
     private boolean isactive;
 

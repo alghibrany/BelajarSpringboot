@@ -71,6 +71,7 @@ public class UserController {
             error = "Username Telah ada";
         }
         if (!temps_cek) {
+            //flash error ke html
             m.addAttribute("error", error);
             m.addAttribute("anggota", user);
             return "registerForm";
@@ -114,7 +115,7 @@ public class UserController {
         passwordReset.setTo(user.getEmail());
         passwordReset.setSubject("Reset Password");
         passwordReset.setText("berikut adalah link untuk reset password anda = " +
-                appUrl+":9090/reset?token=" +user.getToken());
+                appUrl+":8080/reset?token=" +user.getToken());
         ie.sendMail(passwordReset);
          return "forgotPassword";
         
@@ -132,7 +133,7 @@ public class UserController {
         return "resetPassword";
     }
 
-    @PostMapping(value = "/resetProses")
+    @PostMapping("/resetProses")
     public String resPassword(Model m,Users user)
     {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
