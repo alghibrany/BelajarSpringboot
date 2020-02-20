@@ -29,36 +29,23 @@ public class UserController {
     IEmailSevice ie;
 
     @GetMapping("/")
-    public String home(Model m) {
-        
-        String username = ur.getSession();
-        m.addAttribute("session_username", username);
-        m.addAttribute("anggota", new Users());
+    public String home(final Model m) {
+                // m.addAttribute("anggota", new Users());
         return "index";
     }
 
-    @GetMapping("/login")
-    public String showLoginForm(Model m){
-        String username = ur.getSession();
-        if(!username.equals("anonymousUser"))
-        {
-            return "redirect:/";
-        }
-        return "login";
-    }
-   
 
     @GetMapping("/register")
-    public String showFormRegister(Model m){
+    public String showFormRegister(final Model m){
         m.addAttribute("anggota", new Users());
         return "registerForm";
     }
 
 
     @PostMapping("/register_proses")
-    public String registerProses(Model m, Users user) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String newPassword = encoder.encode(user.getPassword());
+    public String registerProses(final Model m, final Users user) {
+        final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        final String newPassword = encoder.encode(user.getPassword());
         user.setPassword(newPassword);
         String error = null;
         boolean temps_cek = true;
@@ -87,13 +74,13 @@ public class UserController {
     }
 
     @GetMapping("/forget")
-    public String forget(Model m, Users user) {
+    public String forget(final Model m, final Users user) {
         m.addAttribute("anggota", user);
         return "forgotPassword";
     }
 
     @PostMapping(value = "/forgetProses")
-    public String forgetProses(Model m, Users user, HttpServletRequest request) {
+    public String forgetProses(final Model m, Users user, final HttpServletRequest request) {
         String error = null;
         String token = null;
         if (!ur.cekEmail(user.getEmail())) {
@@ -109,8 +96,8 @@ public class UserController {
         m.addAttribute("anggota", user);
         m.addAttribute("info", "link reset password telah dikirim ke alamat email = " + user.getEmail());
         
-        String appUrl = request.getScheme() + "://" + request.getServerName();
-        SimpleMailMessage passwordReset = new SimpleMailMessage();
+        final String appUrl = request.getScheme() + "://" + request.getServerName();
+        final SimpleMailMessage passwordReset = new SimpleMailMessage();
         passwordReset.setFrom("salafudin.batman@gmail.com");
         passwordReset.setTo(user.getEmail());
         passwordReset.setSubject("Reset Password");
@@ -122,9 +109,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/reset", method = RequestMethod.GET)
-    public String showResetPage(Model m, @RequestParam("token") String token)
+    public String showResetPage(final Model m, @RequestParam("token") final String token)
     {
-        Users user = ur.getByToken(token);
+        final Users user = ur.getByToken(token);
         if(!user.getToken().equals(token))
         {
             return token;
@@ -134,10 +121,10 @@ public class UserController {
     }
 
     @PostMapping("/resetProses")
-    public String resPassword(Model m,Users user)
+    public String resPassword(final Model m,Users user)
     {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String password_baru = user.getPassword();
+        final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        final String password_baru = user.getPassword();
         user = ur.getById(user.getId());
         user.setPassword(encoder.encode(password_baru));
         user.setToken(null);

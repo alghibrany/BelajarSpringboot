@@ -23,8 +23,6 @@ public class Users {
     @NotEmpty
     @NotNull
     private String email;
-    
-    private boolean isactive;
 
     private String token;
 
@@ -61,14 +59,6 @@ public class Users {
     }
 
   
-    public boolean isIsactive() {
-        return isactive;
-    }
-
-    public void setIsactive(boolean isactive) {
-        this.isactive = isactive;
-    }
-
     public String getToken() {
         return token;
     }

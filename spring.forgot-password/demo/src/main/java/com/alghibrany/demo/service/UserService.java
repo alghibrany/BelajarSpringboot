@@ -55,10 +55,5 @@ public class UserService implements IUserService {
         return ur.findById(id_user);
     }
 
-    @Override
-    public String getSession() {
-        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        return loggedInUser.getName();
-    }
     
 }

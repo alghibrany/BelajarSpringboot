@@ -18,6 +18,5 @@ public interface IUserService {
     Users getByEmail(String email);
     Users getByToken(String token);
     Users getById(int id_user);
-    String getSession();
     
 }
